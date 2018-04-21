@@ -6,8 +6,9 @@ package main
 import (
     "bufio"
     "fmt"
-    "io/ioutil"
     "os"
+    "log"
+    "net/http"
 )
 
 func check(e error) {
@@ -16,16 +17,16 @@ func check(e error) {
     }
 }
 
-func main() {
+func fileWrite() {
 
     // To start, here's how to dump a string (or just
     // bytes) into a file.
-    d1 := []byte("hello\ngo\n")
-    err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
-    check(err)
+    // d1 := []byte("hello\ngo\n")
+    // err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
+    // check(err)
 
     // For more granular writes, open a file for writing.
-    f, err := os.Create("/tmp/dat2")
+    f, err := os.Create("/usr/local/mount/datafile")
     check(err)
 
     // It's idiomatic to defer a `Close` immediately
@@ -33,14 +34,14 @@ func main() {
     defer f.Close()
 
     // You can `Write` byte slices as you'd expect.
-    d2 := []byte{115, 111, 109, 101, 10}
-    n2, err := f.Write(d2)
-    check(err)
-    fmt.Printf("wrote %d bytes\n", n2)
+    // d2 := []byte{115, 111, 109, 101, 10}
+    // n2, err := f.Write(d2)
+    // check(err)
+    // fmt.Printf("wrote %d bytes\n", n2)
 
-    // A `WriteString` is also available. You'll want to use this one, Tariq.
-    n3, err := f.WriteString("writes\n")
-    fmt.Printf("wrote %d bytes\n", n3)
+    // A `WriteString` is also available.
+    //n3, err := f.WriteString("writes\n")
+    // fmt.Printf("wrote %d bytes\n", n3)
 
     // Issue a `Sync` to flush writes to stable storage.
     f.Sync()
@@ -48,7 +49,7 @@ func main() {
     // `bufio` provides buffered writers in addition
     // to the buffered readers we saw earlier.
     w := bufio.NewWriter(f)
-    n4, err := w.WriteString("buffered\n")
+    n4, err := w.WriteString("buffered write\n")
     fmt.Printf("wrote %d bytes\n", n4)
 
     // Use `Flush` to ensure all buffered operations have
@@ -57,3 +58,11 @@ func main() {
 
 }
 
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hi there, I love %s!\n", r.URL.Path[1:])
+}
+
+func main() {
+	http.HandleFunc("/", handler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
