@@ -6,6 +6,7 @@ package main
 import (
     "bufio"
     "fmt"
+    "io/ioutil"
     "os"
     "log"
     "net/http"
@@ -14,6 +15,17 @@ import (
 func check(e error) {
     if e != nil {
         panic(e)
+    }
+}
+
+func listDir() {
+    files, err := ioutil.ReadDir("./")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for _, f := range files {
+            fmt.Println(f.Name())
     }
 }
 
@@ -26,7 +38,7 @@ func fileWrite() {
     // check(err)
 
     // For more granular writes, open a file for writing.
-    f, err := os.Create("/usr/local/datafile")
+    f, err := os.Create("/etc/datafile")
     check(err)
 
     // It's idiomatic to defer a `Close` immediately
@@ -44,22 +56,24 @@ func fileWrite() {
     // fmt.Printf("wrote %d bytes\n", n3)
 
     // Issue a `Sync` to flush writes to stable storage.
-    f.Sync()
+    //f.Sync()
 
     // `bufio` provides buffered writers in addition
     // to the buffered readers we saw earlier.
     w := bufio.NewWriter(f)
-    n4, err := w.WriteString("buffered write\n")
+    n4, err := w.WriteString("well, hello there!\n")
     fmt.Printf("wrote %d bytes\n", n4)
 
     // Use `Flush` to ensure all buffered operations have
     // been applied to the underlying writer.
     w.Flush()
+    listDir()
 
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE %s!\n", r.URL.Path[1:])
+	fileWrite()
 }
 
 func main() {
