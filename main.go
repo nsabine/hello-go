@@ -26,7 +26,7 @@ func fileWrite() {
     // check(err)
 
     // For more granular writes, open a file for writing.
-    f, err := os.Create("/usr/local/mount/datafile")
+    f, err := os.Create("/usr/local/datafile")
     check(err)
 
     // It's idiomatic to defer a `Close` immediately
@@ -59,7 +59,7 @@ func fileWrite() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!\n", r.URL.Path[1:])
+	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE %s!\n", r.URL.Path[1:])
 }
 
 func main() {
