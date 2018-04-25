@@ -9,4 +9,4 @@ build:
 deploy:
   kubectl:
     manifests:
-      - hello-go-ss.yaml
+      - hello-go*

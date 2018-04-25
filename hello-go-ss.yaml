@@ -3,8 +3,11 @@ kind: StatefulSet
 metadata:
   name: hello-go
 spec:
+  selector:
+    matchLabels:
+      app: hello-go # has to match .spec.template.metadata.labels
   serviceName: hello-go
-  replicas: 3
+  replicas: 1
   updateStrategy:
     type: RollingUpdate
   template:

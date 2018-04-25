@@ -4,7 +4,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -37,8 +36,9 @@ func fileWrite(logURL string) {
 	// err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
 	// check(err)
 
-	// For more granular writes, open a file for writing.
-	f, err := os.Create("/etc/datafile")
+	// Create /etc/hello-data
+	err := os.Mkdir("/etc/hello-data", 0666)
+	f, err := os.Create("/etc/hello-data/" + logURL)
 	check(err)
 
 	// It's idiomatic to defer a `Close` immediately
@@ -60,20 +60,24 @@ func fileWrite(logURL string) {
 
 	// `bufio` provides buffered writers in addition
 	// to the buffered readers we saw earlier.
-	w := bufio.NewWriter(f)
-	n4, err := w.WriteString(logURL)
-	fmt.Printf("wrote %d bytes\n", n4)
+	//w := bufio.NewWriter(f)
+	//n4, err := w.WriteString(logURL)
+	fmt.Printf("created file called %s\n", logURL)
 
 	// Use `Flush` to ensure all buffered operations have
 	// been applied to the underlying writer.
-	w.Flush()
+	//w.Flush()
 	//listDir()
 
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	var pathToLog = r.URL.Path[1:]
+	if len(pathToLog) == 0 {
+		pathToLog = "rootURL"
+	}
 	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE %s!\n", r.URL.Path[1:])
-	fileWrite(r.URL.Path[1:])
+	fileWrite(pathToLog)
 }
 
 func main() {
