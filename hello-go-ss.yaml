@@ -1,31 +1,30 @@
 apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
-  name: [STATEFULSET_NAME]
+  name: hello-go
 spec:
-  serviceName: [SERVICE_NAME]
+  serviceName: hello-go
   replicas: 3
   updateStrategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        app: [APP_NAME]
+        app: hello-go
     spec:
       containers:
-      - name: [CONTAINER_NAME]
-        image: ...
+      - name: hello-go
+        image: gcr.io/gcp-demo-200100/hello-go
         ports:
         - containerPort: 80
-          name: [PORT_NAME]
+          name: primary
         volumeMounts:
-        - name: [PVC_NAME]
-          mountPath: ...
+        - name: hello-go-pvc
+          mountPath: /etc
   volumeClaimTemplates:
   - metadata:
-      name: [PVC_NAME]
+      name: hello-go-pvc
       annotations:
-        ...
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
