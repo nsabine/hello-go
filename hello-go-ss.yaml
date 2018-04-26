@@ -22,11 +22,11 @@ spec:
         - containerPort: 80
           name: primary
         volumeMounts:
-        - name: hello-go-pvc
+        - name: hello-go-pv
           mountPath: /etc
   volumeClaimTemplates:
   - metadata:
-      name: hello-go-pvc
+      name: hello-go-pv
       annotations:
     spec:
       accessModes: [ "ReadWriteOnce" ]
