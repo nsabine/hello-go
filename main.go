@@ -74,9 +74,9 @@ func fileWrite(logURL string) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	var pathToLog = r.URL.Path[1:]
 	if len(pathToLog) == 0 {
-		pathToLog = "rootURL"
+		pathToLog = "rootPath"
 	}
-	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE %s!\n", r.URL.Path[1:])
+	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE.\n Creating file /etc/hello-data/%s!\n", pathToLog)
 	fileWrite(pathToLog)
 }
 
