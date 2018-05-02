@@ -76,7 +76,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if len(pathToLog) == 0 {
 		pathToLog = "rootPath"
 	}
-	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE.\n Creating file /etc/hello-data/%s!\n", pathToLog)
+	fmt.Fprintf(w, "Hi there, I love persistent apps on GKE.\n Creating file /etc/hello-data/%s!\n",
+		pathToLog)
 	fileWrite(pathToLog)
 }
 
