@@ -1,7 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: hello-go-svc
+  name: hello-go-svc-ilb
+  annotations:
+    cloud.google.com/load-balancer-type: 'Internal'
 spec:
   selector:
     app: hello-go
