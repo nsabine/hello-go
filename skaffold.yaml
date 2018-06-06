@@ -2,7 +2,7 @@ apiVersion: skaffold/v1alpha2
 kind: Config
 build:
   artifacts:
-  - imageName: gcr.io/cloud-tools-201201/hello-go
+  - imageName: gcr.io/gcp-demo-200100/hello-go
     workspace: .
     docker: {}
   local: {}
