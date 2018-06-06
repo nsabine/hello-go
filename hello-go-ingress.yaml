@@ -1,8 +1,0 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: hello-go-ingress
-spec:
-  backend:
-    serviceName: hello-go-svc
-    servicePort: 80
