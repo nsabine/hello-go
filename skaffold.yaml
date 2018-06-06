@@ -6,6 +6,9 @@ build:
     workspace: .
     docker: {}
   local: {}
+  kaniko:
+    gcsBucket: gs://hello-go-contexts
+    pullSecret: /Users/tariqislam/opt/sa/kaniko-sa.json
 deploy:
   kubectl:
     manifests:
