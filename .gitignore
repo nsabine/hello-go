@@ -1,4 +1,3 @@
 app
 *.json
 *.tar.gz
-skaffold.yaml
