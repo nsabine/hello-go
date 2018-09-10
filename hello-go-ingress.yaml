@@ -1,0 +1,9 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-go-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "hello-go-ingress"
+spec:
+  backend:
+    serviceName: hello-go-svc
