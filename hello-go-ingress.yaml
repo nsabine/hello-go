@@ -7,3 +7,4 @@ metadata:
 spec:
   backend:
     serviceName: hello-go-svc
+    servicePort: 80
