@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-go
-        image: gcr.io/gcp-demo-200100/hello-go
+        image: gcr.io/cloud-tools-201201/hello-go
         ports:
         - containerPort: 80
           name: primary
