@@ -62,7 +62,7 @@ func fileWrite(logURL string) {
 	// to the buffered readers we saw earlier.
 	//w := bufio.NewWriter(f)
 	//n4, err := w.WriteString(logURL)
-	fmt.Printf("created file called %s\n", logURL)
+	fmt.Printf("created a file called %s\n", logURL)
 
 	// Use `Flush` to ensure all buffered operations have
 	// been applied to the underlying writer.
