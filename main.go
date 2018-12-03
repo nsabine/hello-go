@@ -76,7 +76,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if len(pathToLog) == 0 {
 		pathToLog = "rootPath"
 	}
-	fmt.Fprintf(w, "Hi everybody, welcome to a persistent application on GKE.\n Created file /etc/hello-data/%s!\n",
+	fmt.Fprintf(w, "Hi everybody, welcome to a persistent application on GKE.\n This service has created the file /etc/hello-data/%s!\n",
 		pathToLog)
 	fileWrite(pathToLog)
 }
